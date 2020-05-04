@@ -1,0 +1,68 @@
+---
+title: "Untitled"
+author: "Maurice Williams"
+date: "4/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Run This cell before knitting final_draft.Rmd
+
+```{r echo = F}
+library(data.table)
+library(stargazer)
+library(sandwich) 
+
+d <- read.csv("../data/resume_data_outcomes_mini.csv")
+d <- data.table(d)
+d[, min_degree := addNA(min_degree)]
+d[, company := addNA(company)]
+
+m1 <- lm(callback ~ mids + qd + mids*qd + res, data = d)
+m1_cov_mat <- vcovHC(m1, type = 'HC1')
+se1 <- sqrt(diag(m1_cov_mat))
+
+m2 <- lm(callback ~ mids + qd + mids*qd + mids*role + role + res, data = d)
+m2_cov_mat <- vcovHC(m2, type = 'HC1')
+se2 <- sqrt(diag(m2_cov_mat))
+
+m3 <- lm(callback ~ mids + qd + mids*qd + mids*role + role + days_open + DOA + res, data = d)
+m3_cov_mat <- vcovHC(m3, type = 'HC1')
+se3 <- sqrt(diag(m3_cov_mat))
+
+
+se_list <- list(se1, se2, se3)
+
+order = c('mids','qd','role')
+
+
+sink(file = "regression_table.tex")
+
+cat("\\documentclass[11pt, oneside]{article} \n
+    \\usepackage{geometry}  \n
+    \\geometry{letterpaper} \n
+    \\usepackage{graphicx} \n
+    \\usepackage{amssymb} \n
+    \\begin{document} \n")
+stargazer(m1,m2,m3,
+          type = 'latex',
+          covariate.labels = c("MIDS","MIDS x ND", "MIDS x Scientist", "MIDS x Eningeer", "ND", "Engineer","Scientist"),
+          dep.var.labels = "Callback",
+          se = se_list,
+          style = 'default',
+          omit = c('DOA','res','company', 'days_open'),
+          order = order)
+cat("\\end{document}")
+# 
+sink()
+system("pdflatex regression_table.tex", ignore.stdout = F, wait = T, invisible = TRUE)
+```
+
+
+```{r}
+stargazer(m3, type='text', omit = 'company')
+```
+

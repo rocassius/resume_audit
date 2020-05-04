@@ -1,0 +1,50 @@
+---
+title: "Untitled"
+author: "Maurice Williams"
+date: "4/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo = F}
+library(data.table)
+library(stargazer)
+library(sandwich) 
+
+d <- read.csv("../data/resume_data_outcomes_mini.csv")
+d <- data.table(d)#[,.(callback,project,res,mids,qd,role,min_degree,DOA,days_open)]
+
+
+m1 <- lm(callback ~ mids + qd + mids*qd + res + company, data = d)
+m1_cov_mat <- vcovHC(m1, type = 'HC1')
+se1 <- sqrt(diag(m1_cov_mat))
+
+m2 <- lm(callback ~ mids + qd + mids*qd + mids*role + role + res + company, data = d)
+m2_cov_mat <- vcovHC(m2, type = 'HC1')
+se2 <- sqrt(diag(m2_cov_mat))
+
+m3 <- lm(callback ~ mids + qd + mids*qd + mids*role + role + days_open + DOA + res + company, data = d)
+m3_cov_mat <- vcovHC(m3, type = 'HC1')
+se3 <- sqrt(diag(m3_cov_mat))
+
+
+se_list <- list(se1, se2, se3)
+
+order = c('mids','qd','mids*qd','mids*role','role')
+
+
+sink(file = "regression_table.tex")
+stargazer(m1,m2,m3,
+          type = 'latex',
+          covariate.labels = c("MIDS","MIDS x QD", "MIDS X Engineer", "MIDS x Scientist", "QD", "Engineer", "Scientist"),
+          dep.var.labels = "Callback",
+          se = se_list,
+          style = 'default',
+          omit = c('DOA','res','company'),
+          order = order)
+sink()
+```
+

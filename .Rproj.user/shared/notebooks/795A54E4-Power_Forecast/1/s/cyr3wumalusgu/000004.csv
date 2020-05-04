@@ -1,0 +1,2 @@
+"0","# works only in an R script"
+"0","# with(text(sample_sizes ~ taus, labels = sample_sizes, pos = 4))"

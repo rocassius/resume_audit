@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1587245401840.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3222958774",
+    "id" : "FEA27AE0",
+    "lastKnownWriteTime" : 1587245631,
+    "last_content_update" : 1587245631499,
+    "path" : "~/Dropbox/School/UC_Berkeley/MIDS/courses/w241/final/reports/covariate_balance.Rmd",
+    "project_path" : "reports/covariate_balance.Rmd",
+    "properties" : {
+        "cursorPosition" : "50,3",
+        "scrollLine" : "33"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

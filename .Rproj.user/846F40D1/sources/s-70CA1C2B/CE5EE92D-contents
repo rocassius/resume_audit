@@ -1,0 +1,62 @@
+---
+title: "w241_final"
+author: "Maurice Williams"
+date: "4/8/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(data.table)
+library(dplyr)
+library(stargazer)
+```
+
+
+
+```{r cars}
+d <- read.csv("../data/resume_data_outcomes_mini.csv")
+d <- data.table(d)#[,.(callback,project,res,mids,qd,role,min_degree,DOA,days_open)]
+d[, dt := mids + qd]
+d[, min_degree := addNA(min_degree)]
+names(d)
+dim(d)
+```
+
+```{r}
+sum(is.na(d))
+```
+
+
+
+```{r}
+cc_mids <- lm(mids ~ res + role + min_degree + days_open + company, data = d)
+summary(cc_mids)
+```
+
+
+
+```{r}
+cc_qd <- lm(qd ~ res + role + min_degree + days_open + company, data = d)
+summary(cc_qd)
+```
+
+
+
+
+```{r}
+cc_dt <- lm(dt ~ res + role + min_degree + days_open, data = d)
+summary(cc_dt)
+```
+
+
+
+```{r}
+stargazer(cc_mids, cc_qd, type='text', omit = 'company')
+```
+
+```{r}
+res_qd <- lm(qd ~ res, data = d)
+summary(res_qd)
+```
+

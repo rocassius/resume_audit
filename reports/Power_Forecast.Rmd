@@ -1,0 +1,91 @@
+---
+title: "Power Forecast"
+author: "Rowan Cassius"
+date: "3/12/2020"
+output: html_document
+---
+
+# Power Forecast
+
+Let
+$$
+\begin{align*}
+\bar{X} &= \text{ be the positive response rate for the treatment group} \\
+\bar{Y} &= \text{ be the positive response rate for the control group} \\
+
+\end{align*}
+$$
+Then 
+$$
+\hat{\tau} = \bar{X} - \bar{Y}
+$$
+Assuming a one-sided test, the power calculation is:
+$$
+\begin{align*}
+power 
+&= P \Big[ \frac{\hat{\tau}}{\sigma_{\hat{\tau}}} > z(\alpha) \Big]\\
+&= P \Big[ \frac{\hat{\tau} - \tau}{\sigma_{\hat{\tau}}} > z(\alpha) -\tau / \sigma_{\hat{\tau}}  \Big]\\
+\end{align*}
+$$
+
+If n is the number of job postings we repsond to,
+$$
+\sigma_{\hat{\tau}}^2 = \frac{\sigma_{X}^2 + \sigma_{Y}^2}{n}
+$$
+
+Therefore, the necessary n as a function of desired power, and true tau is:
+$$
+n = \frac{\big[z(\alpha) - \Phi^{-1}(1-power)\big]^2 \times (\sigma_{X}^2 + \sigma_{Y}^2)}{\tau^2}
+$$
+
+```{r}
+## Power Forecast for W241 Project ##
+
+# function for calculating the necessary number of job postings to respond to
+calc_sample_size <- function(power, tau, p_control, alpha = 0.05) {
+  
+  var.control <- p_control * (1 - p_control)
+  var.treat <-   (p_control + tau) * (1 - (p_control + tau))
+  
+  z.alpha <- qnorm(1-alpha)
+  n <- (z.alpha - qnorm(1 - power)) ^ 2 * (var.control + var.treat) / (tau^2)
+    
+  return(ceiling(n))  
+}
+```
+
+
+Estimating necessary sample size for default settings.
+
+```{r}
+# dafault settings (These are grounded in intuition and anecdotes)
+pow <- 0.8
+p_cont <- 0.05
+tau <- 0.10
+
+# Necessary number of postings with the defaults
+n_job_postings <- calc_sample_size(power = pow, tau = tau, p_control = p_cont)
+paste("Necessary Number of Job Postings: ", round(n_job_postings))
+
+```
+
+
+Making a plot of power postings and effect size according to default power (0.8) and other settings.
+
+```{r}
+taus <- seq(0.06, 0.20, 0.02)
+sample_sizes <- 
+  sapply(taus, 
+  function(effect) calc_sample_size(power=0.8, tau = effect, p_control = 0.05))
+
+# plot it
+plot(sample_sizes ~ taus, xlim = c(0.06, 0.21), xlab = "tau", ylab = "postings",
+     main="Number of Postings vs Effect Size")
+
+# works only in an R script
+# with(text(sample_sizes ~ taus, labels = sample_sizes, pos = 4))
+
+```
+
+
+

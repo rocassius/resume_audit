@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1587257866905.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "24681B",
+    "lastKnownWriteTime" : 1587404510,
+    "last_content_update" : 1587404510349,
+    "path" : "~/Desktop/W241/final 2/reports/final_draft.Rmd",
+    "project_path" : "reports/final_draft.Rmd",
+    "properties" : {
+        "cursorPosition" : "278,658",
+        "scrollLine" : "270"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

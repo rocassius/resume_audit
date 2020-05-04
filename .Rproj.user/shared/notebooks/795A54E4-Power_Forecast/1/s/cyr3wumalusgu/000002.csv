@@ -1,0 +1,7 @@
+"0","taus <- seq(0.06, 0.20, 0.02)"
+"0","sample_sizes <- "
+"0","  sapply(taus, "
+"0","  function(effect) calc_sample_size(power=0.8, tau = effect, p_control = 0.05))"
+"0","# plot it"
+"0","plot(sample_sizes ~ taus, xlim = c(0.06, 0.21), xlab = ""tau"", ylab = ""postings"","
+"0","     main=""Number of Postings vs Effect Size"")"

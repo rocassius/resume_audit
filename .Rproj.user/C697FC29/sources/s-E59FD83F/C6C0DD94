@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1587241430929.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "C6C0DD94",
+    "lastKnownWriteTime" : 1587253600,
+    "last_content_update" : 1587253625113,
+    "path" : "~/Dropbox/School/UC_Berkeley/MIDS/courses/w241/final/reports/final_draft.Rmd",
+    "project_path" : "reports/final_draft.Rmd",
+    "properties" : {
+        "cursorPosition" : "315,25",
+        "last_setup_crc32" : "E59FD83Ffac5207e",
+        "scrollLine" : "287"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
