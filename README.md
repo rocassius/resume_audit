@@ -4,7 +4,7 @@
 
 
 ## Description
-Our study examines the causal effect of having UC Berkeley’s online Master of Information and Data Science degree (MIDS) on interview callback rates for data science jobs when compared to other Berkeley graduate degrees. We also measure the effect of using numerical, as opposed to non-numerical, descriptions to depict the achievements and impacts of previous job experiences on the same outcome. To achieve this, we conduct a multi-factor experiment by responding to job postings for data-focused positions with fictitious resumes.
+Our study examines the causal effects of two seperate factors on interview callback rates in the data science industry. The first factor is the use of numerical, as opposed to non-numerical, descriptions to depict the achievements and impacts of previous job experiences on one's resume. The second factor is possession of UC Berkeley’s online Master of Information and Data Science degree (MIDS), as opposed to a traditional master's degree in Statistics. The carefully laid out details of our experimental design and the results of the experiment can both be found in the [paper](https://github.com/rocassius/resume_audit/blob/master/reports/paper.pdf). 
 
 
 ## Authors
